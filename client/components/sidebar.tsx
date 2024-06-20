@@ -1,24 +1,47 @@
 import React from "react";
 import Link from "next/link";
 
+import { Layout, Menu, theme } from 'antd';
+const { Sider } = Layout;
+const items = ['users','posts','login'].map(
+    (str, index) => ({
+        key: String(index + 1),
+        label: `nav ${str}`,
+        href: `/${str}`
+      }),
+)
+
 const Sidebar = ({}) => {
     return (
-        <nav>
-            <ul>
-                <li>
-                    <Link href="/">Home</Link>
-                </li>
-                <li>
-                    <Link href="/users">User</Link>
-                </li>
-                <li>
-                    <Link href="/posts">Posts</Link>
-                </li>
-                <li>
-                    <Link href="/login">Login</Link>
-                </li>
-            </ul>
-        </nav>
+        <Sider
+            breakpoint="lg"
+            collapsedWidth="0"
+            onBreakpoint={(broken) => {
+                console.log(broken);
+            }}
+            onCollapse={(collapsed, type) => {
+                console.log(collapsed, type);
+            }}
+            >
+            <div className="demo-logo-vertical" />
+            <Menu mode="inline">
+                <Menu.Item>
+                    <Link href="/users">
+                        Users
+                    </Link>
+                </Menu.Item>
+                <Menu.Item>
+                    <Link href="/posts">
+                        Posts
+                    </Link>
+                </Menu.Item>
+                <Menu.Item>
+                    <Link href="/login">
+                        Login
+                    </Link>
+                </Menu.Item>
+            </Menu>
+        </Sider>
     );
 };
 
