@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
-import Sidebar from  "@/components/sidebar"
+import LayoutWrapper from "@/components/layout/layoutWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +20,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
-                <Sidebar />
-                {children}
+                <LayoutWrapper>{children}</LayoutWrapper>
             </body>
         </html>
     );

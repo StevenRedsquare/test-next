@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'next/link'
+import React from "react";
+import Link from "next/link";
 
 const Sidebar = ({}) => {
     return (
@@ -12,11 +12,14 @@ const Sidebar = ({}) => {
                     <Link href="/users">User</Link>
                 </li>
                 <li>
-                    <Link href="/vehicle-types">vehicles types</Link>
+                    <Link href="/posts">Posts</Link>
+                </li>
+                <li>
+                    <Link href="/login">Login</Link>
                 </li>
             </ul>
         </nav>
-    )
-}
+    );
+};
 
-export default Sidebar
+export default Sidebar;

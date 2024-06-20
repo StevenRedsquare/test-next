@@ -1,5 +1,6 @@
 import axios from "axios";
 import UserCard from "@/components/userCard";
+import { Button } from "antd";
 
 interface User {
     id: number;
@@ -22,6 +23,9 @@ const UserPage = async () => {
     return (
         <>
             User page
+            <div>
+                <Button type="primary">Click me</Button>
+            </div>
             {users.map((user) => (
                 <>
                     <UserCard
