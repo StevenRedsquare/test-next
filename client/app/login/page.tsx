@@ -6,9 +6,7 @@ const LoginPage = () => {
     return (
         <>
             <Link href="/">
-                <Button type="primary">
-                    Go back
-                </Button>
+                <Button type="primary">Go back</Button>
             </Link>
 
             <div>Login page</div>
