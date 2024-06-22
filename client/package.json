@@ -10,13 +10,15 @@
         "format": "prettier --write ."
     },
     "dependencies": {
+        "@ant-design/nextjs-registry": "^1.0.0",
         "@fortawesome/fontawesome-free": "^6.5.2",
         "antd": "^5.18.3",
         "axios": "^1.7.2",
         "mdb-react-ui-kit": "^8.0.0",
         "next": "14.2.4",
         "react": "^18",
-        "react-dom": "^18"
+        "react-dom": "^18",
+        "sass": "^1.77.6"
     },
     "devDependencies": {
         "@types/node": "^20",

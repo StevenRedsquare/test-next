@@ -1,13 +1,17 @@
 "use client";
-import Sidebar from "@/components/sidebar";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Sidebar from "@/components/layout/sidebar";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import { Layout } from "antd";
 import { usePathname } from "next/navigation";
 
 const { Content } = Layout;
 
-const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
+interface Props {
+    children: React.ReactNode;
+}
+
+const LayoutWrapper: React.FC<Props> = ({ children }) => {
     const pathname = usePathname();
     const excludeSidebarRoute = ["/login"];
     const hasSidebar = !excludeSidebarRoute.includes(pathname);

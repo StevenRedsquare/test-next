@@ -1,36 +1,35 @@
 import React from "react";
-import axios from "axios";
+import Link from "next/link";
+import { Post, getPosts } from "./action";
+import { Error } from "@/utils/error";
 
-interface Post {
-    title: string;
-    userId: number;
-    id: number;
-    body: string;
-}
+interface Props {}
 
-const PostPage = async () => {
-    let posts: Post[] = [];
+const PostPage: React.FC<Props> = async () => {
+    let posts: readonly Post[] = [];
+    let error: Error = { message: "", status: null };
 
-    const getPosts = async () => {
-        const res = await axios.get(
-            "https://jsonplaceholder.typicode.com/posts",
-        );
-        posts = res?.data;
-    };
-
-    await getPosts();
+    try {
+        posts = await getPosts();
+    } catch (err) {
+        error = err as Error;
+    }
 
     return (
         <div>
-            post page
+            <div>Posts Page</div>
+            {error.status != null && <div>THIS IS BAD</div>}
             {posts.map((post) => (
-                <>
-                    <div key={post.id}>
-                        <div>{post.userId}</div>
-                        <div>{post.title}</div>
-                        <div>{post.body}</div>
+                <div key={post.id}>
+                    <div>
+                        {post.id} | {post.userId}
                     </div>
-                </>
+                    <div>{post.title}</div>
+                    <div>{post.body}</div>
+                    <Link href={"/posts/" + post.id}>
+                        <button>Show Post</button>
+                    </Link>
+                </div>
             ))}
         </div>
     );
