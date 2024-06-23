@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
 const { Sider } = Layout;
 
 const navItems = [
@@ -23,7 +23,7 @@ const Sidebar = ({}) => {
             breakpoint="lg"
             collapsedWidth="0"
             onBreakpoint={(broken) => {
-                console.log(broken);
+                console.log(broken, "BROKE");
             }}
             onCollapse={(collapsed, type) => {
                 console.log(collapsed, type);

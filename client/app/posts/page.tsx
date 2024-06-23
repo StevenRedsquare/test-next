@@ -1,7 +1,9 @@
 import React from "react";
-import Link from "next/link";
-import { Post, getPosts } from "./action";
-import { Error } from "@/utils/error";
+import type { Post } from "@/app/posts/action";
+import { getPosts } from "@/app/posts/action";
+import type { Error } from "@/utils/error";
+import PostCard from "@/app/posts/components/postCard";
+import "@/app/posts/index.scss";
 
 interface Props {}
 
@@ -16,20 +18,11 @@ const PostPage: React.FC<Props> = async () => {
     }
 
     return (
-        <div>
-            <div>Posts Page</div>
+        <div className="post-page">
             {error.status != null && <div>THIS IS BAD</div>}
+
             {posts.map((post) => (
-                <div key={post.id}>
-                    <div>
-                        {post.id} | {post.userId}
-                    </div>
-                    <div>{post.title}</div>
-                    <div>{post.body}</div>
-                    <Link href={"/posts/" + post.id}>
-                        <button>Show Post</button>
-                    </Link>
-                </div>
+                <PostCard key={post.id} post={post} />
             ))}
         </div>
     );

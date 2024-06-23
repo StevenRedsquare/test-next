@@ -1,7 +1,9 @@
 import React from "react";
-import Link from "next/link";
-import { Album, getAlbums } from "./action";
+import { Flex } from "antd";
+import type { Album } from "@/app/albums/action";
+import { getAlbums } from "@/app/albums/action";
 import { Error } from "@/utils/error";
+import AlbumCard from "@/app/albums/components/albumCard";
 
 interface Props {}
 
@@ -16,21 +18,17 @@ const AlbumsPage: React.FC<Props> = async () => {
     }
 
     return (
-        <div>
-            albums page
+        <Flex wrap gap="small">
             {error.status != null && <div>BADDD</div>}
-            {albums.map((album) => (
-                <div key={album.id}>
-                    <div>
-                        {album.id} | {album.userId}
-                    </div>
-                    <div>{album.title}</div>
-                    <Link href={"/albums/" + album.id}>
-                        <button>Show album</button>
-                    </Link>
-                </div>
-            ))}
-        </div>
+
+            {albums.length > 0 ? (
+                albums.map((album) => (
+                    <AlbumCard key={album.id} album={album} />
+                ))
+            ) : (
+                <div>empty user</div>
+            )}
+        </Flex>
     );
 };
 

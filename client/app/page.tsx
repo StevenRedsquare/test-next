@@ -1,9 +1,9 @@
-import styles from "./page.module.css";
+import "./index.scss";
 
 export default function Home() {
     return (
-        <div className={styles.main}>
-            <h1>main</h1>
+        <div className="main-wrapper">
+            <h1>Main Home Page</h1>
         </div>
     );
 }
