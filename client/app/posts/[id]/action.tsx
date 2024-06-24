@@ -1,6 +1,8 @@
-import axios from "axios";
+import { axiosInstance } from "@/utils/axios";
 import type { Post, Comment } from "@/app/posts/action";
 import { error } from "@/utils/error";
+
+const axios = axiosInstance();
 
 export const getPost = async (id: number | null): Promise<Post | null> => {
     return new Promise(async (resolve, reject) => {

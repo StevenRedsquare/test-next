@@ -1,6 +1,8 @@
+import { axiosInstance } from "@/utils/axios";
 import type { Photo } from "@/app/albums/action";
-import axios from "axios";
 import { error } from "@/utils/error";
+
+const axios = axiosInstance();
 
 export const getPhotos = async (albumId: number | null): Promise<Photo[]> => {
     return new Promise(async (resolve, reject) => {

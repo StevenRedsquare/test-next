@@ -1,6 +1,8 @@
-import axios from "axios";
+import { axiosInstance } from "@/utils/axios";
 import type { User } from "@/app/users/action";
 import { error } from "@/utils/error";
+
+const axios = axiosInstance();
 
 export const getUser = async (id: number): Promise<User | null> => {
     return new Promise(async (resolve, reject) => {

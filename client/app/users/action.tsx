@@ -1,5 +1,7 @@
-import axios from "axios";
+import { axiosInstance } from "@/utils/axios";
 import { error } from "@/utils/error";
+
+const axios = axiosInstance();
 
 export interface User {
     id: number;

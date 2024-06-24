@@ -13,7 +13,9 @@ interface Props {
 
 const LayoutWrapper: React.FC<Props> = ({ children }) => {
     const pathname = usePathname();
+
     const excludeSidebarRoute = ["/login"];
+
     const hasSidebar = !excludeSidebarRoute.includes(pathname);
 
     return (

@@ -1,6 +1,8 @@
-import axios from "axios";
+import { axiosInstance } from "@/utils/axios";
 import { error } from "@/utils/error";
 import { getPhotos } from "@/app/albums/[id]/action";
+
+const axios = axiosInstance();
 
 export interface Album {
     title: string;

@@ -1,5 +1,7 @@
-import axios from "axios";
+import { axiosInstance } from "@/utils/axios";
 import { error } from "@/utils/error";
+
+const axios = axiosInstance();
 
 export interface Post {
     id: number | null;
@@ -19,7 +21,7 @@ export interface Comment {
 export const getPosts = async (): Promise<Post[]> => {
     return new Promise(async (resolve, reject) => {
         await axios
-            .get("https://jsonplaceholder.typicode.com/posts")
+            .get("/posts")
             .then((res) => {
                 if (!res.data) resolve([]);
                 resolve(res.data);
