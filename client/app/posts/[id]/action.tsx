@@ -7,7 +7,7 @@ const axios = axiosInstance();
 export const getPost = async (id: number | null): Promise<Post | null> => {
     return new Promise(async (resolve, reject) => {
         await axios
-            .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+            .get(`/posts/${id}`)
             .then((res) => {
                 if (!res.data) resolve(null);
                 resolve(res.data);
@@ -31,9 +31,7 @@ export const getComments = async (
         }
 
         await axios
-            .get(
-                `https://jsonplaceholder.typicode.com/posts/${postId}/comments`,
-            )
+            .get(`/posts/${postId}/comments`)
             .then((res) => {
                 if (!res.data) resolve([]);
                 resolve(res.data);

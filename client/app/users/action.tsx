@@ -36,7 +36,7 @@ interface Coordinate {
 export const getUsers = async (): Promise<User[]> => {
     return new Promise(async (resolve, reject) => {
         await axios
-            .get("https://jsonplaceholder.typicode.com/users")
+            .get("/users")
             .then((res) => {
                 if (!res.data) resolve([]);
                 resolve(res.data);

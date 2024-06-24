@@ -17,7 +17,6 @@ const axiosPublic = axios.create({
 
 axiosPublic.interceptors.request.use(
     (config) => {
-        console.log("this is public");
         return config;
     },
     (error) => {
@@ -46,7 +45,6 @@ const axiosPrivate = axios.create({
 
 axiosPrivate.interceptors.request.use(
     (config) => {
-        console.log("this is private");
         return config;
     },
     (error) => {

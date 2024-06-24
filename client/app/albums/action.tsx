@@ -22,7 +22,7 @@ export interface Photo {
 export const getAlbums = async (): Promise<Album[]> => {
     return new Promise(async (resolve, reject) => {
         await axios
-            .get("https://jsonplaceholder.typicode.com/albums")
+            .get("/albums")
             .then(async (res) => {
                 if (!res.data) resolve([]);
 

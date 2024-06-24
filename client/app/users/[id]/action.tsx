@@ -7,7 +7,7 @@ const axios = axiosInstance();
 export const getUser = async (id: number): Promise<User | null> => {
     return new Promise(async (resolve, reject) => {
         await axios
-            .get(`https://jsonplaceholder.typicode.com/users/${id}`)
+            .get(`/users/${id}`)
             .then((res) => {
                 if (!res.data) resolve(null);
                 resolve(res.data);
