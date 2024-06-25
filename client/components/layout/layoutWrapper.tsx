@@ -24,17 +24,12 @@ const LayoutWrapper: React.FC<Props> = ({ children }) => {
         label: <Link href={item.path}>{item.label}</Link>,
     }));
 
-    const sidebarBroken = (broken: boolean) => {};
-    const sidebarCollapse = (collapse: boolean, type: string) => {};
-
     return (
         <Layout style={{ minHeight: "100vh" }}>
             {hasSidebar && (
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
-                    onBreakpoint={sidebarBroken}
-                    onCollapse={sidebarCollapse}
                 >
                     <Menu mode="vertical" theme="dark" items={items} />
                 </Sider>
