@@ -21,14 +21,19 @@ const gridStyle: React.CSSProperties = {
 
 const PhotosPage: React.FC<Props> = ({ params }) => {
     const [photos, setPhotos] = useState<Photo[]>([]);
-    const [error, setError] = useState<Error>({ message: "", status: null });
+    const [error, setError] = useState<Error>({
+        message: "",
+        status: null,
+        code: "",
+    });
 
     useEffect(() => {
         const fetchPhotos = async () => {
             try {
                 const photos = await getPhotos(params.id);
                 setPhotos(photos);
-            } catch (err) {
+            } catch (err: any) {
+                err.message = "unable to fetch photos for albums.";
                 setError(err as Error);
             }
         };

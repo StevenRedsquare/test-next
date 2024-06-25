@@ -15,11 +15,12 @@ interface Params {
 
 const UserPage: React.FC<Props> = async ({ params }) => {
     let user: User | null = null;
-    let error: Error = { message: "", status: null };
+    let error: Error = { message: "", status: null, code: "" };
 
     try {
         user = await getUser(params.id);
-    } catch (err) {
+    } catch (err: any) {
+        err.message = "unable to fetch user.";
         error = err as Error;
     }
 
@@ -33,20 +34,18 @@ const UserPage: React.FC<Props> = async ({ params }) => {
             key: 2,
             label: "Username",
             children: user?.username,
-            span:2,
+            span: 2,
         },
         {
             key: 3,
             label: "Name",
             children: user?.name,
-
         },
         {
             key: 4,
             label: "Email",
             children: user?.email,
-            span:2,
-
+            span: 2,
         },
         {
             key: 5,
@@ -57,7 +56,7 @@ const UserPage: React.FC<Props> = async ({ params }) => {
             key: 6,
             label: "Website",
             children: user?.website,
-            span:2,
+            span: 2,
         },
         {
             key: 7,

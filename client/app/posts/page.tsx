@@ -9,17 +9,24 @@ interface Props {}
 
 const PostPage: React.FC<Props> = async () => {
     let posts: readonly Post[] = [];
-    let error: Error = { message: "", status: null };
+    let error: Error = { message: "", status: null, code: "" };
 
     try {
         posts = await getPosts();
-    } catch (err) {
+    } catch (err: any) {
+        err.message = "unable fetch posts.";
         error = err as Error;
     }
 
     return (
         <div className="post-page">
-            {error.status != null && <div>THIS IS BAD</div>}
+            {error.status != null && (
+                <div>
+                    <p>BAD</p>
+                    <p>{error.status}</p>
+                    <p>{error.message}</p>
+                </div>
+            )}
 
             {posts.map((post) => (
                 <PostCard key={post.id} post={post} />

@@ -10,18 +10,19 @@ interface Props {
 }
 
 interface Params {
-    id: number | null;
+    id: number;
 }
 
 const SelectedPostPage: React.FC<Props> = async ({ params }) => {
     let post: Post | null = null;
     let comments: Comment[] = [];
-    let error: Error = { message: "", status: null };
+    let error: Error = { message: "", status: null, code: "" };
 
     try {
         post = await getPost(params.id);
         comments = await getComments(params.id);
-    } catch (err) {
+    } catch (err: any) {
+        err.message = "unable to fetch post.";
         error = err as Error;
     }
 

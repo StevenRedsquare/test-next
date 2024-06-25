@@ -9,11 +9,12 @@ interface Props {}
 
 const AlbumsPage: React.FC<Props> = async () => {
     let albums: Album[] = [];
-    let error: Error = { message: "", status: null };
+    let error: Error = { message: "", status: null, code: "" };
 
     try {
         albums = await getAlbums();
-    } catch (err) {
+    } catch (err: any) {
+        err.message = "unable to fetch album.";
         error = err as Error;
     }
 

@@ -14,11 +14,12 @@ interface Params {
 
 const CommentPage: React.FC<Props> = async ({ params }) => {
     let comment: Comment | null = null;
-    let error: Error = { message: "", status: null };
+    let error: Error = { message: "", status: null, code: "" };
 
     try {
         comment = await getComment(params.commentId);
-    } catch (err) {
+    } catch (err: any) {
+        err.message = "unable to fetch comment"
         error = err as Error;
     }
 

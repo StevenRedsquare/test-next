@@ -1,5 +1,6 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosResponse, Method } from "axios";
 import { fakeJsonUrl } from "@/utils/api";
+import { error } from "@/utils/error";
 
 export const axiosInstance = (isPrivate: boolean = false): AxiosInstance => {
     if (isPrivate) return axiosPrivate;
@@ -28,8 +29,8 @@ axiosPublic.interceptors.response.use(
     (response) => {
         return response;
     },
-    (error) => {
-        return Promise.reject(error);
+    (err) => {
+        return Promise.reject(err);
     },
 );
 
@@ -60,3 +61,23 @@ axiosPrivate.interceptors.response.use(
         return Promise.reject(error);
     },
 );
+
+export async function apiRequest<T>(
+    method: Method,
+    url: string,
+    isPrivate: boolean = false,
+) {
+    let axios = axiosInstance(isPrivate);
+    try {
+        const response: AxiosResponse<T> = await axios({
+            method,
+            url,
+        });
+
+        return response;
+    } catch (err: any) {
+        error.status = err.response.status;
+        error.code = err.code;
+        throw error;
+    }
+}

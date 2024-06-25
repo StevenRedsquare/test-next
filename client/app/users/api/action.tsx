@@ -1,37 +1,17 @@
-import { axiosInstance } from "@/utils/axios";
-import { error } from "@/utils/error";
-import type { User } from "@/app/users/type"
-
-const axios = axiosInstance();
+import { apiRequest } from "@/utils/axios";
+import type { User } from "@/app/users/type";
 
 export const getUsers = async (): Promise<User[]> => {
-    return new Promise(async (resolve, reject) => {
-        await axios
-            .get("/users")
-            .then((res) => {
-                if (!res.data) resolve([]);
-                resolve(res.data);
-            })
-            .catch((err) => {
-                error.message = err.response.statusText;
-                error.status = err.response.status;
-                reject(error);
-            });
-    });
+    const response = await apiRequest<User[]>("GET", `/users`);
+    return response.data;
 };
 
-export const getUser = async (id: number): Promise<User | null> => {
-    return new Promise(async (resolve, reject) => {
-        await axios
-            .get(`/users/${id}`)
-            .then((res) => {
-                if (!res.data) resolve(null);
-                resolve(res.data);
-            })
-            .catch((err) => {
-                error.message = err.response.statusText;
-                error.status = err.response.status;
-                reject(error);
-            });
-    });
+export const getUser = async (id: number): Promise<User> => {
+    const response = await apiRequest<User>("GET", `/users/${id}`);
+    return response.data;
+};
+
+export const deleteUser = async (id: number) => {
+    const response = await apiRequest("DELETE", `/users/${id}`);
+    return response;
 };
