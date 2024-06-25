@@ -3,5 +3,3 @@ export interface Error {
     status: number | null;
     code: string;
 }
-
-export let error: Error = { message: "", status: null, code: "" };

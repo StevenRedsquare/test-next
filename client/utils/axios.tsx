@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, Method } from "axios";
 import { fakeJsonUrl } from "@/utils/api";
-import { error } from "@/utils/error";
+import type { Error } from "@/utils/error";
 
 export const axiosInstance = (isPrivate: boolean = false): AxiosInstance => {
     if (isPrivate) return axiosPrivate;
@@ -76,6 +76,7 @@ export async function apiRequest<T>(
 
         return response;
     } catch (err: any) {
+        let error: Error = { status: null, code: "", message: "" };
         error.status = err.response.status;
         error.code = err.code;
         throw error;
