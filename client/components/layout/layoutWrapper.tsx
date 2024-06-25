@@ -1,11 +1,11 @@
 "use client";
-import Sidebar from "@/components/layout/sidebar";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { Layout } from "antd";
+import { Layout, Menu } from "antd";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
-const { Content } = Layout;
+const { Content, Sider } = Layout;
 
 interface Props {
     children: React.ReactNode;
@@ -18,9 +18,34 @@ const LayoutWrapper: React.FC<Props> = ({ children }) => {
 
     const hasSidebar = !excludeSidebarRoute.includes(pathname);
 
+    const navItems = [
+        { path: "/", label: "Home" },
+        { path: "/users", label: "Users" },
+        { path: "/albums", label: "Albums" },
+        { path: "/posts", label: "Posts" },
+        { path: "/login", label: "Login" },
+    ];
+    
+    const items = navItems.map((item, index) => ({
+        key: index,
+        label: <Link href={item.path}>{item.label}</Link>,
+    }));
+
+    const sidebarBroken = (broken: boolean) => {}
+    const sidebarCollapse = (collapse: boolean, type: string) => {}
+
     return (
-        <Layout style={{ minHeight: "100vh" }}>
-            {hasSidebar && <Sidebar />}
+        <Layout style={{ minHeight: "100vh" }}> 
+            {hasSidebar && (
+                <Sider
+                    breakpoint="lg"
+                    collapsedWidth="0"
+                    onBreakpoint={sidebarBroken}
+                    onCollapse={sidebarCollapse}
+                    >
+                    <Menu mode="vertical" theme="dark" items={items} />
+                </Sider>
+            )}
             <Layout>
                 <Header />
                 <Content style={{ margin: "24px 16px 0" }}>

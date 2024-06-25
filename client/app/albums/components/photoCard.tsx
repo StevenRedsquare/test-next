@@ -1,6 +1,6 @@
 import React from "react";
 import { Space } from "antd";
-import type { Photo } from "@/app/albums/action";
+import type { Photo } from "@/app/albums/type";
 import { Image } from "antd";
 
 interface Props {

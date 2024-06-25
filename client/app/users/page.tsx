@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import type { User } from "@/app/users/action";
-import { getUsers } from "@/app/users/action";
+import type { User } from "@/app/users/type";
+import { getUsers } from "@/app/users/api/action";
 import type { Error } from "@/utils/error";
 import type { TableProps } from "antd";
 import Link from "next/link";
@@ -62,6 +62,7 @@ const UserPage: React.FC<Props> = () => {
 
     const data: DataType[] = users.map((user) => {
         return {
+            key: user.id,
             id: user.id,
             name: user.name,
             username: user.username,

@@ -1,11 +1,9 @@
 import React from "react";
-import type { Post, Comment } from "@/app/posts/action";
-import { getPost, getComments } from "@/app/posts/[id]/action";
+import type { Post, Comment } from "@/app/posts/type";
+import { getPost, getComments } from "@/app/posts/api/action";
 import { Error } from "@/utils/error";
-import CommentCard from "@/app/posts/[id]/components/commentCard";
-import "@/app/posts/index.scss";
-import { Descriptions } from "antd";
-import type { DescriptionsProps } from "antd";
+import CommentCard from "@/app/posts/components/commentCard";
+import "@/app/posts/styles/index.scss";
 
 interface Props {
     params: Params;

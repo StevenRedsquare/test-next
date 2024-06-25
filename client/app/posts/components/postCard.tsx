@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Card } from "antd";
-import type { Post } from "@/app/posts/action";
+import type { Post } from "@/app/posts/type";
 import Link from "next/link";
-import "@/app/posts/index.scss";
+import "@/app/posts/styles/index.scss";
 
 interface Props {
     post: Post;

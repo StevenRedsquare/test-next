@@ -1,23 +1,8 @@
 import { axiosInstance } from "@/utils/axios";
 import { error } from "@/utils/error";
-import { getPhotos } from "@/app/albums/[id]/action";
+import type { Album, Photo } from "@/app/albums/type"
 
 const axios = axiosInstance();
-
-export interface Album {
-    title: string;
-    userId: number;
-    id: number;
-    thumbnail: string;
-}
-
-export interface Photo {
-    albumId: number;
-    id: number;
-    title: string;
-    url: string;
-    thumbnailUrl: string;
-}
 
 export const getAlbums = async (): Promise<Album[]> => {
     return new Promise(async (resolve, reject) => {
@@ -45,6 +30,22 @@ export const getAlbums = async (): Promise<Album[]> => {
                 );
 
                 resolve(result);
+            })
+            .catch((err) => {
+                error.message = err.response.statusText;
+                error.status = err.response.status;
+                reject(error);
+            });
+    });
+};
+
+export const getPhotos = async (albumId: number | null): Promise<Photo[]> => {
+    return new Promise(async (resolve, reject) => {
+        await axios
+            .get(`/photos?albumId=${albumId}`)
+            .then((res) => {
+                if (!res.data) resolve([]);
+                resolve(res.data);
             })
             .catch((err) => {
                 error.message = err.response.statusText;

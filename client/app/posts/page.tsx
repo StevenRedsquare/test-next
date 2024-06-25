@@ -1,9 +1,9 @@
 import React from "react";
-import type { Post } from "@/app/posts/action";
-import { getPosts } from "@/app/posts/action";
+import type { Post } from "@/app/posts/type";
+import { getPosts } from "@/app/posts/api/action";
 import type { Error } from "@/utils/error";
 import PostCard from "@/app/posts/components/postCard";
-import "@/app/posts/index.scss";
+import "@/app/posts/styles/index.scss";
 
 interface Props {}
 

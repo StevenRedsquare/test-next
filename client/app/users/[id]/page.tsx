@@ -1,6 +1,6 @@
 import React from "react";
-import type { User } from "@/app/users/action";
-import { getUser } from "@/app/users/[id]/action";
+import type { User } from "@/app/users/type";
+import { getUser } from "@/app/users/api/action";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
 import type { Error } from "@/utils/error";
@@ -28,37 +28,36 @@ const UserPage: React.FC<Props> = async ({ params }) => {
             key: 1,
             label: "ID",
             children: user?.id,
-            span: 1,
         },
         {
             key: 2,
             label: "Username",
             children: user?.username,
-            span: 2,
+            span:2,
         },
         {
             key: 3,
             label: "Name",
             children: user?.name,
-            span: 2,
+
         },
         {
             key: 4,
             label: "Email",
             children: user?.email,
-            span: 2,
+            span:2,
+
         },
         {
             key: 5,
             label: "Phone",
             children: user?.phone,
-            span: 2,
         },
         {
             key: 6,
             label: "Website",
             children: user?.website,
-            span: 4,
+            span:2,
         },
         {
             key: 7,
@@ -71,7 +70,6 @@ const UserPage: React.FC<Props> = async ({ params }) => {
                     <p>{user?.address.zipcode}</p>
                 </div>
             ),
-            span: 4,
         },
         {
             key: 8,
@@ -83,7 +81,7 @@ const UserPage: React.FC<Props> = async ({ params }) => {
                     </p>
                 </div>
             ),
-            span: 4,
+            span: 2,
         },
     ];
 
@@ -92,19 +90,19 @@ const UserPage: React.FC<Props> = async ({ params }) => {
             key: 1,
             label: "Name",
             children: user?.company.name,
-            span: 4,
+            span: 3,
         },
         {
             key: 2,
             label: "Catch Phrase",
             children: user?.company.catchPhrase,
-            span: 4,
+            span: 3,
         },
         {
             key: 3,
             label: "BS",
             children: user?.company.bs,
-            span: 4,
+            span: 3,
         },
     ];
 
@@ -117,14 +115,14 @@ const UserPage: React.FC<Props> = async ({ params }) => {
                     <Descriptions
                         title="User Info"
                         bordered
-                        column={{ xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4 }}
+                        column={{ xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3 }}
                         items={userItems}
                     />
                     <br />
                     <Descriptions
                         title="Company info"
                         bordered
-                        column={{ xs: 1, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4 }}
+                        column={{ xs: 1, sm: 2, md: 3, lg: 3, xl: 3, xxl: 3 }}
                         items={companyItems}
                     />
                 </>

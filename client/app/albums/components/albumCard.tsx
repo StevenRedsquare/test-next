@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Space } from "antd";
-import type { Album } from "@/app/albums/action";
+import type { Album } from "@/app/albums/type";
 import Link from "next/link";
 import Image from "next/image";
 

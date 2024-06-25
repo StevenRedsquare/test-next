@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "antd";
-import "@/app/login/index.scss";
+import "@/app/login/styles/index.scss";
 
 interface Props {}
 

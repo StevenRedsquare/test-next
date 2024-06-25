@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import type { Photo } from "@/app/albums/action";
-import { getPhotos } from "@/app/albums/[id]/action";
+import type { Photo } from "@/app/albums/type";
+import { getPhotos } from "@/app/albums/api/action";
 import type { Error } from "@/utils/error";
-import PhotoCard from "./components/photoCard";
+import PhotoCard from "@/app/albums/components/photoCard";
 import { Card } from "antd";
 
 interface Props {

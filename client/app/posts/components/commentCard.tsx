@@ -1,8 +1,8 @@
 import React from "react";
-import type { Comment } from "@/app/posts/action";
+import type { Comment } from "@/app/posts/type";
 import { Button } from "antd";
 import Link from "next/link";
-import "@/app/posts/index.scss";
+import "@/app/posts/styles/index.scss";
 
 interface Props {
     comment: Comment;

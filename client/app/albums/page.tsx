@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "antd";
-import type { Album } from "@/app/albums/action";
-import { getAlbums } from "@/app/albums/action";
+import type { Album } from "@/app/albums/type";
+import { getAlbums } from "@/app/albums/api/action";
 import { Error } from "@/utils/error";
 import AlbumCard from "@/app/albums/components/albumCard";
 
