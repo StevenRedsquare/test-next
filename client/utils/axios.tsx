@@ -1,22 +1,11 @@
-import axios, { AxiosInstance, AxiosResponse, Method } from "axios";
-import { fakeJsonUrl } from "@/utils/api";
+import axios, { AxiosResponse, Method } from "axios";
+import { defaultBaseURL } from "@/utils/api";
 import type { Error } from "@/utils/error";
 
-const axiosInstance = (isPrivate: boolean): AxiosInstance => {
-    if (isPrivate) return axiosPrivate;
-    return axiosPublic;
-};
-
 // Axios Public
-const axiosPublic = axios.create({
-    baseURL: fakeJsonUrl,
-    headers: {
-        "Content-Type": "application/json",
-    },
-    timeout: 10000,
-});
+const axiosInstance = axios.create();
 
-axiosPublic.interceptors.request.use(
+axiosInstance.interceptors.request.use(
     (config) => {
         return config;
     },
@@ -25,7 +14,7 @@ axiosPublic.interceptors.request.use(
     },
 );
 
-axiosPublic.interceptors.response.use(
+axiosInstance.interceptors.response.use(
     (response) => {
         return response;
     },
@@ -34,43 +23,15 @@ axiosPublic.interceptors.response.use(
     },
 );
 
-// Axios Private
-const axiosPrivate = axios.create({
-    baseURL: fakeJsonUrl,
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: "access-token",
-    },
-    timeout: 10000,
-});
-
-axiosPrivate.interceptors.request.use(
-    (config) => {
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    },
-);
-
-axiosPrivate.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
-        return Promise.reject(error);
-    },
-);
-
 export async function apiRequest<T>(
     method: Method,
     url: string,
-    isPrivate: boolean = false,
+    baseURL: string = defaultBaseURL,
 ) {
-    let axios = axiosInstance(isPrivate);
     try {
-        const response: AxiosResponse<T> = await axios({
+        const response: AxiosResponse<T> = await axiosInstance({
             method,
+            baseURL,
             url,
         });
 

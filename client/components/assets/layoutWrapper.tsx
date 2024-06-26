@@ -3,6 +3,7 @@ export const navItems = [
     { path: "/users", label: "Users" },
     { path: "/albums", label: "Albums" },
     { path: "/posts", label: "Posts" },
+    { path: "/products", label: "Products" },
     { path: "/login", label: "Login" },
 ];
 

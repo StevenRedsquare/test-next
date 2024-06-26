@@ -1,1 +1,1 @@
-export const fakeJsonUrl = "https://jsonplaceholder.typicode.com/";
+export const defaultBaseURL = "https://jsonplaceholder.typicode.com/";
