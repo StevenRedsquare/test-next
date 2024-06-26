@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Space, Modal, message } from "antd";
 import type { User } from "@/app/users/type";
-import { getUsers, deleteUser } from "@/app/users/api/action";
+import { getUsers, deleteUser } from "@/app/users/api";
 import type { Error } from "@/utils/error";
 import type { TableProps } from "antd";
 import Link from "next/link";

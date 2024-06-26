@@ -1,6 +1,6 @@
 import React from "react";
 import type { Post } from "@/app/posts/type";
-import { getPosts } from "@/app/posts/api/action";
+import { getPosts } from "@/app/posts/api";
 import type { Error } from "@/utils/error";
 import PostCard from "@/app/posts/components/postCard";
 import "@/app/posts/styles/index.scss";

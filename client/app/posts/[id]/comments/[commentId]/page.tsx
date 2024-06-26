@@ -1,6 +1,6 @@
 import React from "react";
 import type { Comment } from "@/app/posts/type";
-import { getComment } from "@/app/posts/api/action";
+import { getComment } from "@/app/posts/api";
 import { Error } from "@/utils/error";
 
 interface Props {

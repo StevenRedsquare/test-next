@@ -1,6 +1,6 @@
 import React from "react";
 import type { User } from "@/app/users/type";
-import { getUser } from "@/app/users/api/action";
+import { getUser } from "@/app/users/api";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
 import type { Error } from "@/utils/error";

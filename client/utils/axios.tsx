@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosResponse, Method } from "axios";
 import { fakeJsonUrl } from "@/utils/api";
 import type { Error } from "@/utils/error";
 
-export const axiosInstance = (isPrivate: boolean = false): AxiosInstance => {
+const axiosInstance = (isPrivate: boolean): AxiosInstance => {
     if (isPrivate) return axiosPrivate;
     return axiosPublic;
 };

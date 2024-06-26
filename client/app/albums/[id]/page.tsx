@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import type { Photo } from "@/app/albums/type";
-import { getPhotos } from "@/app/albums/api/action";
+import { getPhotos } from "@/app/albums/api";
 import type { Error } from "@/utils/error";
 import PhotoCard from "@/app/albums/components/photoCard";
 import { Card } from "antd";
