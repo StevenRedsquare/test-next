@@ -27,7 +27,7 @@ const AlbumsPage: React.FC<Props> = async () => {
                     <AlbumCard key={album.id} album={album} />
                 ))
             ) : (
-                <div>empty user</div>
+                <div>empty album</div>
             )}
         </Flex>
     );

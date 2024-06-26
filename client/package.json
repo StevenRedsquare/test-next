@@ -14,13 +14,16 @@
         "@fortawesome/fontawesome-free": "^6.5.2",
         "antd": "^5.18.3",
         "axios": "^1.7.2",
+        "lodash": "^4.17.21",
         "mdb-react-ui-kit": "^8.0.0",
         "next": "14.2.4",
         "react": "^18",
         "react-dom": "^18",
-        "sass": "^1.77.6"
+        "sass": "^1.77.6",
+        "universal-cookie": "^7.1.4"
     },
     "devDependencies": {
+        "@types/lodash": "^4.17.5",
         "@types/node": "^20",
         "@types/react": "^18",
         "@types/react-dom": "^18",
