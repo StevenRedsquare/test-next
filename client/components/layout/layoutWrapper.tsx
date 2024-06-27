@@ -27,10 +27,7 @@ const LayoutWrapper: React.FC<Props> = ({ children }) => {
     return (
         <Layout style={{ minHeight: "100vh" }}>
             {hasSidebar && (
-                <Sider
-                    breakpoint="lg"
-                    collapsedWidth="0"
-                >
+                <Sider breakpoint="lg" collapsedWidth="0">
                     <Menu mode="vertical" theme="dark" items={items} />
                 </Sider>
             )}

@@ -31,9 +31,9 @@ export async function apiRequest<T>(
     data: any = {},
 ) {
     try {
-        const cookies = new Cookies()
+        const cookies = new Cookies();
         // not workgin for server side component
-        console.log(cookies.get('loggedIn'))
+        console.log(cookies.get("loggedIn"));
 
         const response: AxiosResponse<T> = await axiosInstance({
             method,
@@ -41,8 +41,8 @@ export async function apiRequest<T>(
             url,
             data,
             headers: {
-                Authorization: `Bearer ${cookies.get('loggedIn')?.access_token}`
-            }
+                Authorization: `Bearer ${cookies.get("loggedIn")?.access_token}`,
+            },
         });
 
         return response;

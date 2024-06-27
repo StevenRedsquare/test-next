@@ -14,22 +14,22 @@ interface Params {
 }
 
 const CommentPage: React.FC<Props> = ({ params }) => {
-    const [comment, setComment] = useState<Comment | null>(null)
-    const [error, setError] = useState<Error|null>(null)
+    const [comment, setComment] = useState<Comment | null>(null);
+    const [error, setError] = useState<Error | null>(null);
 
-    const fetchComment = async(commentId: number) => {
+    const fetchComment = async (commentId: number) => {
         try {
-            const response = await getComment(commentId)
-            setComment(response)
-        } catch(err: any) {
-            err.message = "unable to fetch comment."
-            setError(err)
+            const response = await getComment(commentId);
+            setComment(response);
+        } catch (err: any) {
+            err.message = "unable to fetch comment.";
+            setError(err);
         }
-    }
+    };
 
-    useEffect( ()=> {
-        fetchComment(params.commentId)
-    },[params.commentId])
+    useEffect(() => {
+        fetchComment(params.commentId);
+    }, [params.commentId]);
 
     return (
         <div className="comment-card">

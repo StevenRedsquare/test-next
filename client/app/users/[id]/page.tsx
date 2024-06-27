@@ -15,22 +15,22 @@ interface Params {
 }
 
 const UserPage: React.FC<Props> = ({ params }) => {
-    const [user, setUser] = useState<User|null>(null)
-    const [error, setError] = useState<Error | null>(null)
+    const [user, setUser] = useState<User | null>(null);
+    const [error, setError] = useState<Error | null>(null);
 
     const fetchUser = async (id: number) => {
         try {
-            const response = await getUser(id)
-            setUser(response)
+            const response = await getUser(id);
+            setUser(response);
         } catch (err: any) {
-            err.message = "unable to fetch user."
-            setError(err as Error)
+            err.message = "unable to fetch user.";
+            setError(err as Error);
         }
-    }
+    };
 
-    useEffect( () => {
-        fetchUser(params.id)
-    }, [params.id])
+    useEffect(() => {
+        fetchUser(params.id);
+    }, [params.id]);
 
     const userItems: DescriptionsProps["items"] = [
         {

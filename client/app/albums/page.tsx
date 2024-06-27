@@ -9,22 +9,22 @@ import AlbumCard from "@/app/albums/components/albumCard";
 interface Props {}
 
 const AlbumsPage: React.FC<Props> = () => {
-    const [albums, setAlbums] = useState<Album[]>([])
-    const [error, setError] = useState<Error | null>(null)
+    const [albums, setAlbums] = useState<Album[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
-    const fetchAlbums = async() => {
-        try  {
-            const response = await getAlbums()
-            setAlbums(response)
-        } catch(err: any) {
-            err.message = "unable to fetch albums."
-            setError(err)
+    const fetchAlbums = async () => {
+        try {
+            const response = await getAlbums();
+            setAlbums(response);
+        } catch (err: any) {
+            err.message = "unable to fetch albums.";
+            setError(err);
         }
-    }
+    };
 
-    useEffect( ()=> {
-        fetchAlbums()
-    },[])
+    useEffect(() => {
+        fetchAlbums();
+    }, []);
 
     return (
         <Flex wrap gap="small">

@@ -1,46 +1,59 @@
-import { apiRequest } from "@/utils/axios"
+import { apiRequest } from "@/utils/axios";
 import Cookies from "universal-cookie";
 
 export const isAuthenticated = async () => {
-    const cookies = new Cookies()
-    const loggedIn = cookies.get('loggedIn')
-    console.log(loggedIn)
-    
-    if (loggedIn) return true
-    return false
+    const cookies = new Cookies();
+    const loggedIn = cookies.get("loggedIn");
+    console.log(loggedIn);
+
+    if (loggedIn) return true;
+    return false;
     /**
      * Call the server to verify the token
      * return true if verified, else false
      */
-}
+};
 
-export const login = async (username: string, password: string, remember: boolean) => {
+export const login = async (
+    username: string,
+    password: string,
+    remember: boolean,
+) => {
     try {
-        const response = await apiRequest<any>("POST", `/auth/login`,"https://api.escuelajs.co/api/v1", {
-            email: username,
-            password,
-            remember
-        })
-        
+        const response = await apiRequest<any>(
+            "POST",
+            `/auth/login`,
+            "https://api.escuelajs.co/api/v1",
+            {
+                email: username,
+                password,
+                remember,
+            },
+        );
+
         if (response.status === 201) {
             const cookies = new Cookies();
-            cookies.set("loggedIn",{access_token: response.data.access_token},{path:"/"})
+            cookies.set(
+                "loggedIn",
+                { access_token: response.data.access_token },
+                { path: "/" },
+            );
         }
 
-        return response
+        return response;
     } catch (err: any) {
         // Based on server output status code
-        switch (err.status){
+        switch (err.status) {
             case 401:
-                err.message = "invalid credential input."
+                err.message = "invalid credential input.";
                 break;
             default:
-                err.message = "something went wrong."
+                err.message = "something went wrong.";
                 break;
         }
-        return err
+        return err;
     }
-}
+};
 
 export const logout = async () => {
     try {
@@ -49,10 +62,10 @@ export const logout = async () => {
          *  if return success
          *  then remove session token
          */
-        const cookies = new Cookies()
-        cookies.remove('loggedIn')
-        return true
+        const cookies = new Cookies();
+        cookies.remove("loggedIn");
+        return true;
     } catch (err) {
-        return false
+        return false;
     }
-}
+};

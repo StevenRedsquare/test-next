@@ -10,22 +10,22 @@ import { setEnvironmentData } from "worker_threads";
 interface Props {}
 
 const PostPage: React.FC<Props> = () => {
-    const [posts, setPosts] = useState<Post[]>([])
-    const [error, setError] = useState<Error | null>(null)
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
     const fetchPosts = async () => {
         try {
             const response = await getPosts();
-            setPosts(response)
+            setPosts(response);
         } catch (err: any) {
-            err.message = "unable to fetch posts."
-            setError(err)
+            err.message = "unable to fetch posts.";
+            setError(err);
         }
-    }
+    };
 
-    useEffect( () => {
-        fetchPosts()
-    }, [])
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     return (
         <div className="post-page">

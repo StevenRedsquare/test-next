@@ -15,25 +15,25 @@ interface Params {
 }
 
 const SelectedPostPage: React.FC<Props> = ({ params }) => {
-    const [post, setPost] = useState<Post | null>(null)
-    const [comments, setComments] = useState<Comment[]>([])
-    const [error, setError] = useState<Error|null>(null)
+    const [post, setPost] = useState<Post | null>(null);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [error, setError] = useState<Error | null>(null);
 
-    const fetchPost = async (id:number) => {
+    const fetchPost = async (id: number) => {
         try {
-            const response = await getPost(id)
-            const commentResponse = await getComments(id)
-            setPost(response)
-            setComments(commentResponse)
-        } catch(err: any) {
-            err.message = "unable to fetch post."
-            setError(err)
+            const response = await getPost(id);
+            const commentResponse = await getComments(id);
+            setPost(response);
+            setComments(commentResponse);
+        } catch (err: any) {
+            err.message = "unable to fetch post.";
+            setError(err);
         }
-    }
+    };
 
-    useEffect( () => {
-        fetchPost(params.id)
-    },[params.id])
+    useEffect(() => {
+        fetchPost(params.id);
+    }, [params.id]);
 
     return (
         <div>
