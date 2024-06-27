@@ -6,11 +6,9 @@ const { Header } = Layout;
 
 const HeaderComponent = () => {
     return (
-        <>
-            <Header style={{ padding: 0, color: "#FFF" }}>
-                <div className="header-title">NextJS</div>
-            </Header>
-        </>
+        <Header style={{ padding: 0, color: "#FFF", position:'fixed', width: '100%', zIndex:1 }}>
+            <div className="header-title">NextJS</div>
+        </Header>
     );
 };
 

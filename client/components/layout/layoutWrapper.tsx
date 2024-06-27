@@ -27,13 +27,13 @@ const LayoutWrapper: React.FC<Props> = ({ children }) => {
     return (
         <Layout style={{ minHeight: "100vh" }}>
             {hasSidebar && (
-                <Sider breakpoint="lg" collapsedWidth="0">
+                <Sider breakpoint="lg" collapsedWidth="0" style={{height:'100vh', position:'fixed'}}>
                     <Menu mode="vertical" theme="dark" items={items} />
                 </Sider>
             )}
-            <Layout>
+            <Layout style={{marginLeft:200}}>
                 <Header />
-                <Content style={{ margin: "24px 16px 0" }}>
+                <Content style={{ margin: "100px 16px 0" }}>
                     <div
                         style={{
                             padding: 24,

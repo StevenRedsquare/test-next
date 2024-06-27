@@ -37,7 +37,6 @@ const ProductsPage: React.FC<Props> = () => {
             size={[8, 16]}
             wrap
             align="center"
-            style={{ height: "75vh", overflowY: "scroll" }}
         >
             {error?.status != null && <div>BAD</div>}
 
