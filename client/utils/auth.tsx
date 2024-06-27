@@ -1,5 +1,4 @@
 import { apiRequest } from "@/utils/axios";
-import { NextResponse } from "next/server";
 import Cookies from "universal-cookie";
 
 interface Login {
