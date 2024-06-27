@@ -4,6 +4,8 @@ import { Button, Checkbox, Form, Input, message } from "antd";
 import type { FormProps } from "antd";
 import { login } from "@/utils/auth";
 import { useRouter } from "next/navigation";
+import { debounce } from "lodash";
+import { DEBOUNCE_TIMEOUT } from "@/utils/event";
 
 interface Props {}
 
@@ -16,7 +18,7 @@ type FieldType = {
 const LoginPage: React.FC<Props> = () => {
     const router = useRouter();
 
-    const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    const onFinish: FormProps<FieldType>["onFinish"] = debounce(async (values) => {
         const response = await login(
             values.username,
             values.password,
@@ -28,7 +30,7 @@ const LoginPage: React.FC<Props> = () => {
         }
 
         message.error("Login failed. Please check your credentials.");
-    };
+    }, DEBOUNCE_TIMEOUT);
 
     const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = async (
         errorInfo,
