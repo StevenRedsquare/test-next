@@ -4,6 +4,10 @@ import type { Album, Photo } from "@/app/albums/type";
 export const getAlbums = async (): Promise<Album[]> => {
     const response = await apiRequest<Album[]>("GET", `/albums`);
 
+    /**
+     * This is due to the Fake API album not having an image
+     * in practice, backend should take care of the thumbnail
+     */
     const result: Promise<Album[]> = Promise.all(
         response.data.map(async (album): Promise<Album> => {
             const photos: Photo[] = await getPhotos(album.id);
