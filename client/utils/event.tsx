@@ -1,1 +1,1 @@
-export const DEBOUNCE_TIMEOUT=500
+export const DEBOUNCE_TIMEOUT=500 // in millisecond
