@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import type { Comment } from "@/app/posts/type";
 import { getComment } from "@/app/posts/api";
 import { Error } from "@/utils/error";
@@ -12,16 +13,23 @@ interface Params {
     commentId: number;
 }
 
-const CommentPage: React.FC<Props> = async ({ params }) => {
-    let comment: Comment | null = null;
-    let error: Error = { message: "", status: null, code: "" };
+const CommentPage: React.FC<Props> = ({ params }) => {
+    const [comment, setComment] = useState<Comment | null>(null)
+    const [error, setError] = useState<Error|null>(null)
 
-    try {
-        comment = await getComment(params.commentId);
-    } catch (err: any) {
-        err.message = "unable to fetch comment"
-        error = err as Error;
+    const fetchComment = async(commentId: number) => {
+        try {
+            const response = await getComment(commentId)
+            setComment(response)
+        } catch(err: any) {
+            err.message = "unable to fetch comment."
+            setError(err)
+        }
     }
+
+    useEffect( ()=> {
+        fetchComment(params.commentId)
+    },[params.commentId])
 
     return (
         <div className="comment-card">

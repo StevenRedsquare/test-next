@@ -2,9 +2,12 @@ import { apiRequest } from "@/utils/axios"
 import Cookies from "universal-cookie";
 
 export const isAuthenticated = async () => {
-    const token = sessionStorage.getItem('accessToken')
-    console.log(token)
-    return true
+    const cookies = new Cookies()
+    const loggedIn = cookies.get('loggedIn')
+    console.log(loggedIn)
+    
+    if (loggedIn) return true
+    return false
     /**
      * Call the server to verify the token
      * return true if verified, else false
@@ -46,8 +49,8 @@ export const logout = async () => {
          *  if return success
          *  then remove session token
          */
-
-        sessionStorage.removeItem('accessToken');
+        const cookies = new Cookies()
+        cookies.remove('loggedIn')
         return true
     } catch (err) {
         return false

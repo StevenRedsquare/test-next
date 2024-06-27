@@ -21,17 +21,17 @@ const UserPage: React.FC<Props> = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [error, setError] = useState<Error | null>(null);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const users = await getUsers();
-                setUsers(users);
-            } catch (err: any) {
-                err.message = "unable to fetch users.";
-                setError(err as Error);
-            }
-        };
+    const fetchUsers = async () => {
+        try {
+            const users = await getUsers();
+            setUsers(users);
+        } catch (err: any) {
+            err.message = "unable to fetch users.";
+            setError(err as Error);
+        }
+    };
 
+    useEffect(() => {
         fetchUsers();
     }, []);
 

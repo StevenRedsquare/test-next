@@ -27,18 +27,18 @@ const PhotosPage: React.FC<Props> = ({ params }) => {
         code: "",
     });
 
-    useEffect(() => {
-        const fetchPhotos = async () => {
-            try {
-                const photos = await getPhotos(params.id);
-                setPhotos(photos);
-            } catch (err: any) {
-                err.message = "unable to fetch photos for albums.";
-                setError(err as Error);
-            }
-        };
+    const fetchPhotos = async (id: number) => {
+        try {
+            const photos = await getPhotos(id);
+            setPhotos(photos);
+        } catch (err: any) {
+            err.message = "unable to fetch photos for albums.";
+            setError(err as Error);
+        }
+    };
 
-        fetchPhotos();
+    useEffect(() => {
+        fetchPhotos(params.id);
     }, [params.id]);
 
     return (

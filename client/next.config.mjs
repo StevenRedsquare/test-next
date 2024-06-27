@@ -4,19 +4,11 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "via.placeholder.com",
-            },
-            {
-                protocol: "https",
-                hostname: "i.imgur.com",
-            },
-            {
-                protocol: "https",
-                hostname: "placeimg.com",
+                hostname: "*",  // SET in specific url
             },
             {
                 protocol: "http",
-                hostname: "placeimg.com",
+                hostname: "*",
             },
         ],
     },

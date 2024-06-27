@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { useEffect, useState } from 'react';
 import type { Product } from '@/app/products/type';
 import type { Error } from '@/utils/error';
 import { getProduct } from '@/app/products/api';
@@ -14,16 +15,23 @@ interface Params {
     id: number;
 }
 
-const ProductPage: React.FC<Props> = async ({ params }) => {
-    let product: Product | null = null;
-    let error: Error = { message: "", status: null, code: "" };
+const ProductPage: React.FC<Props> = ({ params }) => {
+    const [product, setProduct] = useState<Product | null>(null)
+    const [error, setError] = useState<Error|null>(null)
 
-    try {
-        product = await getProduct(params.id);
-    } catch (err: any) {
-        err.message = "unable to fetch product.";
-        error = err as Error;
+    const fetchProduct = async (id:number) => {
+        try {
+            const response = await getProduct(id)
+            setProduct(response)
+        } catch(err: any) {
+            err.message = "unable to fetch product."
+            setError(err as Error)
+        }
     }
+
+    useEffect( () => {
+        fetchProduct(params.id)
+    },[params.id])
     
     const items: DescriptionsProps['items'] = [
         {
@@ -39,6 +47,8 @@ const ProductPage: React.FC<Props> = async ({ params }) => {
 
     return (
         <>
+            {error?.status != null && (<div>bad</div>)}
+            
             {product && (
                 <Card title="Product Info" bordered={false} style={{ width: '100%' }}>
                     <Image

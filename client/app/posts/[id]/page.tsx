@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import type { Post, Comment } from "@/app/posts/type";
 import { getPost, getComments } from "@/app/posts/api";
 import { Error } from "@/utils/error";
@@ -13,22 +14,30 @@ interface Params {
     id: number;
 }
 
-const SelectedPostPage: React.FC<Props> = async ({ params }) => {
-    let post: Post | null = null;
-    let comments: Comment[] = [];
-    let error: Error = { message: "", status: null, code: "" };
+const SelectedPostPage: React.FC<Props> = ({ params }) => {
+    const [post, setPost] = useState<Post | null>(null)
+    const [comments, setComments] = useState<Comment[]>([])
+    const [error, setError] = useState<Error|null>(null)
 
-    try {
-        post = await getPost(params.id);
-        comments = await getComments(params.id);
-    } catch (err: any) {
-        err.message = "unable to fetch post.";
-        error = err as Error;
+    const fetchPost = async (id:number) => {
+        try {
+            const response = await getPost(id)
+            const commentResponse = await getComments(id)
+            setPost(response)
+            setComments(commentResponse)
+        } catch(err: any) {
+            err.message = "unable to fetch post."
+            setError(err)
+        }
     }
+
+    useEffect( () => {
+        fetchPost(params.id)
+    },[params.id])
 
     return (
         <div>
-            {error.status != null && <div>BAD PAGE</div>}
+            {error?.status != null && <div>BAD PAGE</div>}
 
             {post && (
                 <>

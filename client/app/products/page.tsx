@@ -11,18 +11,18 @@ interface Props {}
 const ProductsPage: React.FC<Props> = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [error, setError] = useState<Error | null>(null);
-    
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const products = await getProducts();
-                setProducts(products);
-            } catch (err: any) {
-                err.message = "unable to fetch products.";
-                setError(err as Error);
-            }
-        };
 
+    const fetchProducts = async () => {
+        try {
+            const products = await getProducts();
+            setProducts(products);
+        } catch (err: any) {
+            err.message = "unable to fetch products.";
+            setError(err as Error);
+        }
+    };
+
+    useEffect(() => {
         fetchProducts();
     }, []); // TODO: need to add dependency
 

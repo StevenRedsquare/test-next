@@ -1,26 +1,35 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import type { Post } from "@/app/posts/type";
 import { getPosts } from "@/app/posts/api";
 import type { Error } from "@/utils/error";
 import PostCard from "@/app/posts/components/postCard";
 import "@/app/posts/styles/index.scss";
+import { setEnvironmentData } from "worker_threads";
 
 interface Props {}
 
-const PostPage: React.FC<Props> = async () => {
-    let posts: readonly Post[] = [];
-    let error: Error = { message: "", status: null, code: "" };
+const PostPage: React.FC<Props> = () => {
+    const [posts, setPosts] = useState<Post[]>([])
+    const [error, setError] = useState<Error | null>(null)
 
-    try {
-        posts = await getPosts();
-    } catch (err: any) {
-        err.message = "unable fetch posts.";
-        error = err as Error;
+    const fetchPosts = async () => {
+        try {
+            const response = await getPosts();
+            setPosts(response)
+        } catch (err: any) {
+            err.message = "unable to fetch posts."
+            setError(err)
+        }
     }
+
+    useEffect( () => {
+        fetchPosts()
+    }, [])
 
     return (
         <div className="post-page">
-            {error.status != null && (
+            {error?.status != null && (
                 <div>
                     <p>BAD</p>
                     <p>{error.status}</p>

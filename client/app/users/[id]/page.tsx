@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import type { User } from "@/app/users/type";
 import { getUser } from "@/app/users/api";
 import type { DescriptionsProps } from "antd";
@@ -13,16 +14,23 @@ interface Params {
     id: number;
 }
 
-const UserPage: React.FC<Props> = async ({ params }) => {
-    let user: User | null = null;
-    let error: Error = { message: "", status: null, code: "" };
+const UserPage: React.FC<Props> = ({ params }) => {
+    const [user, setUser] = useState<User|null>(null)
+    const [error, setError] = useState<Error | null>(null)
 
-    try {
-        user = await getUser(params.id);
-    } catch (err: any) {
-        err.message = "unable to fetch user.";
-        error = err as Error;
+    const fetchUser = async (id: number) => {
+        try {
+            const response = await getUser(id)
+            setUser(response)
+        } catch (err: any) {
+            err.message = "unable to fetch user."
+            setError(err as Error)
+        }
     }
+
+    useEffect( () => {
+        fetchUser(params.id)
+    }, [params.id])
 
     const userItems: DescriptionsProps["items"] = [
         {
@@ -107,7 +115,7 @@ const UserPage: React.FC<Props> = async ({ params }) => {
 
     return (
         <div>
-            {error.status != null && <div>BADDD</div>}
+            {error?.status != null && <div>BADDD</div>}
 
             {user && (
                 <>
