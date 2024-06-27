@@ -1,18 +1,10 @@
 import { apiRequest } from "@/utils/axios";
+import { NextResponse } from "next/server";
 import Cookies from "universal-cookie";
 
-export const isAuthenticated = async () => {
-    const cookies = new Cookies();
-    const loggedIn = cookies.get("loggedIn");
-    console.log(loggedIn);
-
-    if (loggedIn) return true;
-    return false;
-    /**
-     * Call the server to verify the token
-     * return true if verified, else false
-     */
-};
+interface Login {
+    access_token: string;
+}
 
 export const login = async (
     username: string,
@@ -20,7 +12,7 @@ export const login = async (
     remember: boolean,
 ) => {
     try {
-        const response = await apiRequest<any>(
+        const response = await apiRequest<Login>(
             "POST",
             `/auth/login`,
             "https://api.escuelajs.co/api/v1",
@@ -31,12 +23,18 @@ export const login = async (
             },
         );
 
+        /**
+         * see if backend token do return expiry time to replace the const date
+         */
+        const date = new Date();
+        date.setTime(date.getTime() + 3600 * 1000); // Set expiration time to 1 hour from now
+
         if (response.status === 201) {
             const cookies = new Cookies();
             cookies.set(
                 "loggedIn",
                 { access_token: response.data.access_token },
-                { path: "/" },
+                { path: "/", expires: date},
             );
         }
 
@@ -55,17 +53,16 @@ export const login = async (
     }
 };
 
-export const logout = async () => {
+export const logout = () => {
     try {
         /**
-         * Call server to logout
-         *  if return success
-         *  then remove session token
+         * Call server to logout if any
          */
+
         const cookies = new Cookies();
-        cookies.remove("loggedIn");
-        return true;
-    } catch (err) {
-        return false;
+        cookies.remove("loggedIn", {path: "/"});
+        return {status: 200, type: 'logout'}
+    } catch (err: any) {
+        return {status: err?.status, type:'logout', info:err}
     }
 };

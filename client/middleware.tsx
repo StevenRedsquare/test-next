@@ -6,6 +6,7 @@ export function middleware(request: NextResponse) {
     const isLoggedIn = !isEmpty(cookies?.value);
     const { pathname } = new URL(request.url);
 
+    // Not logged and protected routes
     if (
         !isLoggedIn &&
         !some(GUEST_ROUTES, (guestRoute: string) =>
@@ -13,6 +14,14 @@ export function middleware(request: NextResponse) {
         )
     ) {
         const url = new URL("/login", request.url);
+        return NextResponse.redirect(url);
+    } 
+    // Logged and in /login route
+    else if (
+        isLoggedIn &&
+        startsWith(pathname, "/login")
+    ) {
+        const url = new URL("/", request.url);
         return NextResponse.redirect(url);
     }
 
