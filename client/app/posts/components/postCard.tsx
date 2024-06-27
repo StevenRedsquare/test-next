@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card } from "antd";
 import type { Post } from "@/app/posts/type";
 import Link from "next/link";
-import "@/app/posts/styles/index.scss";
+import styles from "@/app/posts/styles/index.module.scss"
 
 interface Props {
     post: Post;
@@ -10,9 +10,9 @@ interface Props {
 
 const PostCard: React.FC<Props> = ({ post }) => {
     return (
-        <Card title={`${post.id}. ${post.title}`} className="post-card">
+        <Card title={`${post.id}. ${post.title}`} className={styles.post_card}>
             <div>{post.body}</div>
-            <Link className="post-info-button" href={`/posts/${post.id}`}>
+            <Link className={styles.post_info_button} href={`/posts/${post.id}`}>
                 <Button>More info ...</Button>
             </Link>
         </Card>

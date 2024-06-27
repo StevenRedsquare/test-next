@@ -4,7 +4,7 @@ import type { Post, Comment } from "@/app/posts/type";
 import { getPost, getComments } from "@/app/posts/api";
 import { Error } from "@/utils/error";
 import CommentCard from "@/app/posts/components/commentCard";
-import "@/app/posts/styles/index.scss";
+import styles from "@/app/posts/styles/index.module.scss";
 
 interface Props {
     params: Params;
@@ -45,10 +45,10 @@ const SelectedPostPage: React.FC<Props> = ({ params }) => {
                         <div>
                             <h1>{post.title}</h1>
                         </div>
-                        <p className="post-content">{post.body}</p>
+                        <p className={styles.post_content}>{post.body}</p>
                     </div>
 
-                    <div className="post-comments-section">
+                    <div className={styles.post_comments_section}>
                         <h2>Comments ({comments.length})</h2>
                         {comments.map((comment) => (
                             <div key={comment.id}>

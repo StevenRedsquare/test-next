@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import type { Comment } from "@/app/posts/type";
 import { getComment } from "@/app/posts/api";
 import { Error } from "@/utils/error";
+import styles from "@/app/posts/styles/index.module.scss"
 
 interface Props {
     params: Params;
@@ -32,7 +33,7 @@ const CommentPage: React.FC<Props> = ({ params }) => {
     }, [params.commentId]);
 
     return (
-        <div className="comment-card">
+        <div className={styles.comment_card}>
             {comment && (
                 <>
                     <div>

@@ -1,21 +1,21 @@
-.post-page {
+.post_page {
     max-height: 75vh;
     overflow-y: scroll;
 }
 
-.post-card {
+.post_card {
     width: 100%;
     height: 200px;
     overflow: hidden;
     margin-bottom: 20px !important;
 }
 
-.post-info-button {
+.post_info_button {
     position: absolute;
     bottom: 10px;
 }
 
-.post-content {
+.post_content {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     width: 100%;
@@ -24,38 +24,21 @@
     margin-top: 10px;
 }
 
-.post-comments-section {
+.post_comments_section {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     margin-top: 20px;
     padding: 15px 20px;
 }
 
-.comment-card {
+.comment_card {
     margin-top: 10px;
     margin-bottom: 10px;
     position: relative;
 }
 
-.comment-show-button {
+.comment_show_button {
     position: absolute;
     right: 5%;
     bottom: 1%;
-}
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: grey;
-    border-radius: 10px;
 }

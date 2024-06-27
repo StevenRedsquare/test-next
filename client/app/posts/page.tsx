@@ -4,8 +4,7 @@ import type { Post } from "@/app/posts/type";
 import { getPosts } from "@/app/posts/api";
 import type { Error } from "@/utils/error";
 import PostCard from "@/app/posts/components/postCard";
-import "@/app/posts/styles/index.scss";
-import { setEnvironmentData } from "worker_threads";
+import styles from "@/app/posts/styles/index.module.scss"
 
 interface Props {}
 
@@ -28,7 +27,7 @@ const PostPage: React.FC<Props> = () => {
     }, []);
 
     return (
-        <div className="post-page">
+        <div className={styles.post_page}>
             {error?.status != null && (
                 <div>
                     <p>BAD</p>

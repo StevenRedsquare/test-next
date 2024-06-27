@@ -2,7 +2,7 @@ import React from "react";
 import type { Comment } from "@/app/posts/type";
 import { Button } from "antd";
 import Link from "next/link";
-import "@/app/posts/styles/index.scss";
+import styles from "@/app/posts/styles/index.module.scss";
 
 interface Props {
     comment: Comment;
@@ -10,13 +10,13 @@ interface Props {
 
 const CommentCard: React.FC<Props> = ({ comment }) => {
     return (
-        <div className="comment-card">
+        <div className={styles.comment_card}>
             <p>
                 <b>{comment.name}</b> ({comment.email})
             </p>
             <p>{comment.body}</p>
             <Link
-                className="comment-show-button"
+                className={styles.comment_show_button}
                 href={`/posts/${comment.postId}/comments/${comment.id}`}
             >
                 <Button type="primary">Show Me</Button>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { Product } from "@/app/products/type";
 import Link from "next/link";
-import "@/app/posts/styles/index.scss";
 import { Card, Button, Space } from "antd";
 import Image from "next/image";
 import { DeleteOutlined } from "@ant-design/icons";
