@@ -27,3 +27,11 @@ interface Coordinate {
     lat: string;
     lng: string;
 }
+
+export interface Profile {
+    avatar: string;
+    email: string;
+    name: string;
+    role: string;
+    id: number;
+}

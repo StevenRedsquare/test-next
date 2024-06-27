@@ -32,8 +32,6 @@ export async function apiRequest<T>(
 ) {
     try {
         const cookies = new Cookies();
-        // not workgin for server side component
-        console.log(cookies.get("loggedIn"));
 
         const response: AxiosResponse<T> = await axiosInstance({
             method,
