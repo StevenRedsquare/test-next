@@ -33,11 +33,7 @@ const ProductsPage: React.FC<Props> = () => {
     };
 
     return (
-        <Space
-            size={[8, 16]}
-            wrap
-            align="center"
-        >
+        <Space size={[8, 16]} wrap align="center">
             {error?.status != null && <div>BAD</div>}
 
             {products.map((product) => (

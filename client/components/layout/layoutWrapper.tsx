@@ -1,15 +1,12 @@
 "use client";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
-import {
-    navItems,
-    excludeSidebarRoute,
-} from "@/components/assets/layoutWrapper";
+import { excludeSidebarRoute } from "@/components/assets/layoutWrapper";
+import Sidebar from "@/components/layout/sidebar";
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
 interface Props {
     children: React.ReactNode;
@@ -19,20 +16,11 @@ const LayoutWrapper: React.FC<Props> = ({ children }) => {
     const pathname = usePathname();
     const hasSidebar = !excludeSidebarRoute.includes(pathname);
 
-    const items = navItems.map((item, index) => ({
-        key: index,
-        label: <Link href={item.path}>{item.label}</Link>,
-    }));
-
     return (
         <Layout style={{ minHeight: "100vh" }}>
-            {hasSidebar && (
-                <Sider breakpoint="lg" collapsedWidth="0" style={{height:'100vh', position:'fixed'}}>
-                    <Menu mode="vertical" theme="dark" items={items} />
-                </Sider>
-            )}
-            <Layout style={{marginLeft:200}}>
-                <Header />
+            {hasSidebar && <Sidebar />}
+            <Layout style={{ marginLeft: hasSidebar ? 200 : 0 }}>
+                <Header hasSidebar={hasSidebar} />
                 <Content style={{ margin: "100px 16px 0" }}>
                     <div
                         style={{
