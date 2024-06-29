@@ -4,7 +4,7 @@ import type { Post } from "@/app/posts/type";
 import { getPosts } from "@/app/posts/api";
 import type { Error } from "@/utils/error";
 import PostCard from "@/app/posts/components/postCard";
-import styles from "@/app/posts/styles/index.module.scss"
+import styles from "@/app/posts/styles/index.module.css"
 
 interface Props {}
 

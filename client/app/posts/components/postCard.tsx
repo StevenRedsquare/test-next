@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card } from "antd";
 import type { Post } from "@/app/posts/type";
 import Link from "next/link";
-import styles from "@/app/posts/styles/index.module.scss"
+import styles from "@/app/posts/styles/index.module.css"
 
 interface Props {
     post: Post;

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import type { Comment } from "@/app/posts/type";
 import { getComment } from "@/app/posts/api";
 import { Error } from "@/utils/error";
-import styles from "@/app/posts/styles/index.module.scss"
+import styles from "@/app/posts/styles/index.module.css"
 
 interface Props {
     params: Params;

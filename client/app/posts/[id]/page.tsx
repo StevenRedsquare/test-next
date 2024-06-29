@@ -4,7 +4,7 @@ import type { Post, Comment } from "@/app/posts/type";
 import { getPost, getComments } from "@/app/posts/api";
 import { Error } from "@/utils/error";
 import CommentCard from "@/app/posts/components/commentCard";
-import styles from "@/app/posts/styles/index.module.scss";
+import styles from "@/app/posts/styles/index.module.css";
 
 interface Props {
     params: Params;

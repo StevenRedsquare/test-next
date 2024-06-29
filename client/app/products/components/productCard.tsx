@@ -16,22 +16,22 @@ const ProductCard: React.FC<Props> = ({ product, onDelete }) => {
     const defaultImageURL = "https://i.imgur.com/QkIa5tT.jpeg";
     const [imageURL, setImageURL] = useState(product.category.image);
 
-    useEffect(() => {
-        const validateImage = async (url: string) => {
-            try {
-                const response = await fetch(url, { method: "HEAD" });
-                const contentType = response.headers.get("content-type");
-                if (contentType != "image/jpeg") setImageURL(defaultImageURL);
-            } catch (err) {
-                setImageURL(defaultImageURL);
-            }
-        };
+    const validateImage = async (url: string) => {
+        try {
+            const response = await fetch(url, { method: "HEAD" });
+            const contentType = response.headers.get("content-type");
+            if (contentType != "image/jpeg") setImageURL(defaultImageURL);
+        } catch (err) {
+            setImageURL(defaultImageURL);
+        }
+    };
 
+    useEffect(() => {
         validateImage(product.category.image);
     }, [product.category.image]);
 
     return (
-        <div className="product-card">
+        <div>
             <Card
                 hoverable
                 style={{ width: 240, height: 450 }}

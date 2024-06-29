@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, Layout } from "antd";
-import { navItems } from "@/components/assets/layoutWrapper";
+import { navItems } from "@/components/layout/sidebar/assets";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 

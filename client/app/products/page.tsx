@@ -24,7 +24,7 @@ const ProductsPage: React.FC<Props> = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, []); // TODO: need to add dependency
+    }, []);
 
     const handleDeleteProduct = async (id: number) => {
         await deleteProduct(id);

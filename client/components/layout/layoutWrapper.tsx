@@ -1,10 +1,10 @@
 "use client";
+import { Layout } from "antd";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { Layout } from "antd";
-import { usePathname } from "next/navigation";
-import { excludeSidebarRoute } from "@/components/assets/layoutWrapper";
 import Sidebar from "@/components/layout/sidebar";
+import { usePathname } from "next/navigation";
+import { excludeSidebarRoute } from "@/components/layout/sidebar/assets";
 
 const { Content } = Layout;
 
