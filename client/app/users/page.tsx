@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Space, Modal, message } from "antd";
 import type { User } from "@/app/users/type";
-import { getUsers, deleteUser } from "@/app/users/api";
+import { getUsers, deleteUser, getUser } from "@/app/users/api";
 import type { Error } from "@/utils/error";
 import type { TableProps } from "antd";
 import Link from "next/link";
 import { DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { useQuery } from '@tanstack/react-query'
+import LoadingComponent from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 interface Props {}
 
@@ -18,22 +21,26 @@ interface DataType {
 }
 
 const UserPage: React.FC<Props> = () => {
+    const title = "User"
     const [users, setUsers] = useState<User[]>([]);
-    const [error, setError] = useState<Error | null>(null);
+    const [errors, setErrors] = useState<Error | null>(null);
 
-    const fetchUsers = async () => {
-        try {
-            const users = await getUsers();
-            setUsers(users);
-        } catch (err: any) {
-            err.message = "unable to fetch users.";
-            setError(err as Error);
-        }
-    };
-
+    const usersQuery = useQuery({
+        queryKey: ['users'],
+        queryFn: () => getUsers(),
+        staleTime: 10000,   // Keep data as fresh for 10sec
+      })
+      
     useEffect(() => {
-        fetchUsers();
-    }, []);
+        if (usersQuery.isSuccess) {
+            setUsers(usersQuery.data)
+        }
+
+        if (usersQuery.isError) {
+            usersQuery.error.message = "unable to fetch users."
+            setErrors(usersQuery.error as unknown as Error)
+        }
+    }, [usersQuery]);
 
     const openDeleteModal = (user: string, id: number) => {
         Modal.confirm({
@@ -111,7 +118,7 @@ const UserPage: React.FC<Props> = () => {
         },
     ];
 
-    const data: DataType[] = users.map((user) => {
+    const dataSource: DataType[] = users.map((user) => {
         return {
             key: user.id,
             id: user.id,
@@ -121,17 +128,14 @@ const UserPage: React.FC<Props> = () => {
         };
     });
 
-    return (
-        <>
-            {error?.status != null && (
-                <div>
-                    <p>Bad</p>
-                    <p>{error.status}</p>
-                    <p>{error.message}</p>
-                </div>
-            )}
+    if (usersQuery.isPending) return <LoadingComponent title={title} />
+    
+    if (usersQuery.isError) return <ErrorComponent title={title} error={errors} />
 
-            <Table columns={columns} dataSource={data} />
+    return (
+        <>  
+            <title>{title}</title>
+            <Table columns={columns} dataSource={dataSource} />
         </>
     );
 };
