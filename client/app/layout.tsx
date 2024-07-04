@@ -8,6 +8,8 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query'
+import { ConfigProvider } from "antd";
+import enUS from 'antd/lib/locale/en_US';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +26,9 @@ export default function RootLayout({
             <body className={inter.className}>
                 <AntdRegistry>
                     <QueryClientProvider client={queryClient}>
-                        <LayoutWrapper>{children}</LayoutWrapper>
+                        <ConfigProvider locale={enUS}>
+                            <LayoutWrapper>{children}</LayoutWrapper>
+                        </ConfigProvider>
                     </QueryClientProvider>
                 </AntdRegistry>
             </body>

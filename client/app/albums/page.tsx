@@ -5,26 +5,38 @@ import type { Album } from "@/app/albums/type";
 import { getAlbums } from "@/app/albums/api";
 import { Error } from "@/utils/error";
 import AlbumCard from "@/app/albums/components/albumCard";
+import { useQuery } from '@tanstack/react-query'
+import LoadingComponent from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 interface Props {}
 
 const AlbumsPage: React.FC<Props> = () => {
+    const title = "Albums"
     const [albums, setAlbums] = useState<Album[]>([]);
     const [error, setError] = useState<Error | null>(null);
 
-    const fetchAlbums = async () => {
-        try {
-            const response = await getAlbums();
-            setAlbums(response);
-        } catch (err: any) {
-            err.message = "unable to fetch albums.";
-            setError(err);
-        }
-    };
+    const albumsQuery = useQuery({
+        queryKey: ['albums'],
+        queryFn: () => getAlbums(),
+        staleTime: 10000,   // Keep data as fresh for 10sec
+      })
 
     useEffect(() => {
-        fetchAlbums();
-    }, []);
+        if (albumsQuery.isSuccess) {
+            setAlbums(albumsQuery.data)
+        }
+
+        if (albumsQuery.isError) {
+            albumsQuery.error.message = "unable to fetch users."
+            setError(albumsQuery.error as unknown as Error)
+        }
+    }, [albumsQuery]);
+
+
+    if (albumsQuery.isPending) return <LoadingComponent title={title} />
+    
+    if (albumsQuery.isError) return <ErrorComponent title={title} error={error} />
 
     return (
         <Flex wrap gap="small">

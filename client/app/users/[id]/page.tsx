@@ -5,6 +5,9 @@ import { getUser } from "@/app/users/api";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
 import type { Error } from "@/utils/error";
+import { useQuery } from '@tanstack/react-query'
+import LoadingComponent from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 interface Props {
     params: Params;
@@ -15,22 +18,13 @@ interface Params {
 }
 
 const UserPage: React.FC<Props> = ({ params }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [error, setError] = useState<Error | null>(null);
+    const title = "User"
 
-    const fetchUser = async (id: number) => {
-        try {
-            const response = await getUser(id);
-            setUser(response);
-        } catch (err: any) {
-            err.message = "unable to fetch user.";
-            setError(err as Error);
-        }
-    };
-
-    useEffect(() => {
-        fetchUser(params.id);
-    }, [params.id]);
+    const {data: user, error, isSuccess, isPending, isError} = useQuery<User, Error>({
+        queryKey: ['user', params.id],
+        queryFn: () => getUser(params.id),
+        staleTime: 10000,   // Keep data as fresh for 10sec
+      })
 
     const userItems: DescriptionsProps["items"] = [
         {
@@ -113,10 +107,15 @@ const UserPage: React.FC<Props> = ({ params }) => {
         },
     ];
 
+    if (isPending) return <LoadingComponent title={title} />
+    if (isError) {
+        error.message = "unable to fetch user."
+        return <ErrorComponent title={title} error={error} />
+    }
+
     return (
         <div>
-            {error?.status != null && <div>BADDD</div>}
-
+            <title>{title}</title>
             {user && (
                 <>
                     <Descriptions

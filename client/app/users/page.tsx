@@ -1,15 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Table, Button, Space, Modal, message } from "antd";
-import type { User } from "@/app/users/type";
-import { getUsers, deleteUser, getUser } from "@/app/users/api";
-import type { Error } from "@/utils/error";
-import type { TableProps } from "antd";
+import React from "react";
+import { Button, Space, Modal, message } from "antd";
+import { getUsers, deleteUser } from "@/app/users/api";
 import Link from "next/link";
 import { DeleteOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
-import { useQuery } from '@tanstack/react-query'
-import LoadingComponent from "@/components/loading";
-import ErrorComponent from "@/components/error";
+import { ProTable, ProColumns } from "@ant-design/pro-components";
 
 interface Props {}
 
@@ -18,29 +13,11 @@ interface DataType {
     name: string;
     username: string;
     email: string;
+    key: number;
 }
 
 const UserPage: React.FC<Props> = () => {
-    const title = "User"
-    const [users, setUsers] = useState<User[]>([]);
-    const [errors, setErrors] = useState<Error | null>(null);
-
-    const usersQuery = useQuery({
-        queryKey: ['users'],
-        queryFn: () => getUsers(),
-        staleTime: 10000,   // Keep data as fresh for 10sec
-      })
-      
-    useEffect(() => {
-        if (usersQuery.isSuccess) {
-            setUsers(usersQuery.data)
-        }
-
-        if (usersQuery.isError) {
-            usersQuery.error.message = "unable to fetch users."
-            setErrors(usersQuery.error as unknown as Error)
-        }
-    }, [usersQuery]);
+    const title = "Users"
 
     const openDeleteModal = (user: string, id: number) => {
         Modal.confirm({
@@ -78,7 +55,7 @@ const UserPage: React.FC<Props> = () => {
             });
     };
 
-    const columns: TableProps<DataType>["columns"] = [
+    const columns: ProColumns<DataType>[] = [
         {
             title: "Id",
             dataIndex: "id",
@@ -118,24 +95,37 @@ const UserPage: React.FC<Props> = () => {
         },
     ];
 
-    const dataSource: DataType[] = users.map((user) => {
-        return {
-            key: user.id,
-            id: user.id,
-            name: user.name,
-            username: user.username,
-            email: user.email,
-        };
-    });
-
-    if (usersQuery.isPending) return <LoadingComponent title={title} />
-    
-    if (usersQuery.isError) return <ErrorComponent title={title} error={errors} />
-
     return (
         <>  
             <title>{title}</title>
-            <Table columns={columns} dataSource={dataSource} />
+            <ProTable<DataType>
+                columns={columns}
+                search={false}
+                request={() => getUsers()
+                    .then((res)=>{
+                        const result = res.map( data => {
+                            return {
+                                ...data,
+                                key: data.id,
+                            }
+                        })
+
+                        return Promise.resolve({
+                            data: result,
+                            success: true
+                        })
+                    })
+                    .catch((err)=>{
+                        err.message = "unable to fetch users."
+                        message.error(err.message)
+                        return {
+                            data: [],
+                            success: false
+                        }
+                    })
+                }
+                rowKey={"key"}
+            />
         </>
     );
 };

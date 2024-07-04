@@ -8,26 +8,20 @@ import { getProfile } from "@/app/users/api";
 import { Avatar, Card, Descriptions, Space } from "antd";
 import type { DescriptionsProps } from "antd";
 import type { Profile } from "@/app/users/type";
+import { useQuery } from '@tanstack/react-query'
+import LoadingComponent from "@/components/loading";
+import ErrorComponent from "@/components/error";
 
 interface Props {}
 
 const ProfilePage: React.FC<Props> = () => {
-    const [profile, setProfile] = useState<Profile | null>(null);
-    const [error, setError] = useState<Error | null>(null);
+    const title = "Profile"
 
-    const fetchProfile = async () => {
-        try {
-            const response = await getProfile();
-            setProfile(response);
-        } catch (err: any) {
-            err.message = "unable to fetch profile.";
-            setError(err);
-        }
-    };
-
-    useEffect(() => {
-        fetchProfile();
-    }, []);
+    const {data: profile, error, isSuccess, isPending, isError} = useQuery<Profile, Error>({
+        queryKey: ['profile'],
+        queryFn: () => getProfile(),
+        staleTime: 10000,   // Keep data as fresh for 10sec
+    })
 
     const items: DescriptionsProps["items"] = [
         { label: "Name", children: profile?.name, span: 3 },
@@ -35,10 +29,15 @@ const ProfilePage: React.FC<Props> = () => {
         { label: "Role", children: profile?.role },
     ];
 
+    if (isPending) return <LoadingComponent title={title} />
+    if (isError) {
+        error.message = "unable to fetch profile."
+        return <ErrorComponent title={title} error={error} />
+    }
+
     return (
         <div>
-            {error?.status != null && <div>no profile</div>}
-
+            <title>{title}</title>
             <Card title="My Profile" bordered={false}>
                 <div style={{ display: "flex" }}>
                     <div>
