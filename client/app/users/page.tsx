@@ -124,7 +124,7 @@ const UserPage: React.FC<Props> = () => {
                         }
                     })
                 }
-                rowKey={"key"}
+                rowKey={(data) => data.key}
             />
         </>
     );
